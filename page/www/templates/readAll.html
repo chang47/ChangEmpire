@@ -1,0 +1,19 @@
+<ion-view view-title="Read">
+  <ion-content>
+  	<div class="list">
+  		<center><p ng-repeat="user in users">
+  			{{user.name}}
+  			<button class="button button-large icon-left ion-close-round" ng-click="delete({{user.id}})">Delete</button>
+  		</p></center>
+  	</div>
+  	<label class="item item-input">
+  		<input type="text" name="input" ng-model="newName">
+  	</label>
+  	<!-- weird, but for the html in this case, newName doesn't need to be an expression
+		it's connected with the $scope.newName though
+  	 -->
+  	<center><button class="button button-large icon-right ion-checkmark" ng-click="add(newName)">Add</button></center>
+  	<br />
+  	<center>extra words: {{newName}}</center>
+  </ion-content>
+</ion-view>
