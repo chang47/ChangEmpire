@@ -1,11 +1,15 @@
 <ion-view view-title="Read">
   <ion-content>
-  	<div class="list">
-  		<center><p ng-repeat="user in users">
-  			{{user.name}}
-  			<button class="button button-large icon-left ion-close-round" ng-click="delete({{user.id}})">Delete</button>
-  		</p></center>
-  	</div>
+    <ion-scroll direction="y" style="height:500px">
+    
+      <div class="list">
+      <center><p ng-repeat="user in users">
+        {{user.name}}
+        <button class="button button-large icon-left ion-close-round" ng-click="delete({{user.id}})">Delete</button>
+      </p></center>
+      </div>
+    
+    </ion-scroll>
   	<label class="item item-input">
   		<input type="text" name="input" ng-model="newName">
   	</label>

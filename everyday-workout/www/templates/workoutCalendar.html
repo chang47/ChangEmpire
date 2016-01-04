@@ -1,7 +1,58 @@
+<style type="text/css">
+    
+</style>
 <ion-view title="Workout Calendar">
     <ion-content overflow-scroll="true" padding="true" class="has-header">
         <a href="#/timeEditor" class="button button-stable button-block ">More Specific</a>
         <div>
+            <ion-scroll zooming="false" direction="y" style="height:500px;">
+                <div>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <!-- the time title, need to ng repeat this -->
+                                    <table class="time-name">
+                                        <tbody>
+                                            <tr>
+                                                <td>0:00</td>
+                                            </tr>
+                                            <tr>
+                                                <td>0:15</td>
+                                            </tr>
+                                            <tr>
+                                                <td>0:30</td>
+                                            </tr>
+                                            <tr>
+                                                <td>0:45</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <td>
+                                    <!-- The button for the title, ng repeat this -->
+                                    <table class="time-button">
+                                        <tbody>
+                                            <tr>
+                                                <td class="button-full"></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="button-full"></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="button-full"></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="button-full"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>            
+            </ion-scroll>
             <p>
                 The code for the calendar inside a scroll bar
                 <b>HTML</b>for
