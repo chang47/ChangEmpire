@@ -1,13 +1,19 @@
 /* Empty. Add your own CSS if you like */
 td {
-	padding: px;
-	vertical-align: top;
-	width: 1300px;
+	width: 1500px;
 	height: 50px;
 }
 
-table {
-	/*border: solid black;*/
+table.main {
+	background-color: #eee;
+}
+
+table.time-name {
+	background-color: white;
+}
+
+table.time-button {
+	background-color: white;
 }
 
 .time-name > tbody > tr > td {
@@ -15,13 +21,16 @@ table {
 	border-width: 1px;
 	width: "20%";
 	border-left: none;
-	
+	border-color: gray;
+	margin-right: 5px;
 }
 
 .time-button > tbody > tr > td {
 	border-style: dashed;
 	border-width: 1px;
-	border-left: none;
+	width: "20%";
+	border-left: thin dashed;
 	border-right: none;	
+	border-color: gray;
 	/*background: #b2b2b2;*/
 }
