@@ -4,7 +4,7 @@ angular.module('app.controllers', [])
 
 })
    
-.controller('workoutCalendarCtrl', function($scope) {
+.controller('workoutCalendarCtrl', function($scope, datesFactory) {
 	$scope.dates = [
 					{time: "0:00", selected: false, style: {"backgroundColor": "white", "borderTop": "none"}, style2: {"borderTop": "none"}}, {time: "0:15", selected: false, style: {"backgroundColor": "white"}}, {time: "0:30", selected: false, style: {"backgroundColor": "white"}}, {time: "0:45", selected: false, style: {"backgroundColor": "white"}},
 					{time: "1:00", selected: false, style: {"backgroundColor": "white"}}, {time: "1:15", selected: false, style: {"backgroundColor": "white"}}, {time: "1:30", selected: false, style: {"backgroundColor": "white"}}, {time: "1:45", selected: false, style: {"backgroundColor": "white", borderBottom: "none"}, style2: {"borderBottom": "none"}}
