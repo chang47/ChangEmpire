@@ -5,13 +5,11 @@ angular.module('app.services', [])
 	dates.mon = dateDb.get('mon');
 	dates.tue = dateDb.get('tue');
 	dates.wed = dateDb.get('wed');
-	dates.thur = dateDb.get('thu');
+	dates.thu = dateDb.get('thu');
 	dates.fri = dateDb.get('fri');
 	dates.sat = dateDb.get('sat');
 	dates.sun = dateDb.get('sun'); 
-	//console.log(dates);
-	//console.log(obj);
-	dates.change = function(day, list) {
+	dates.save = function(day, list) {
 		if (list.length != 4 * 24) {
 			return "error";
 		} else {
@@ -33,7 +31,7 @@ angular.module('app.services', [])
 	db.get = function(day) {
 		var list = JSON.parse($window.localStorage[day] || '[]');
 		
-		// check to see if new list
+		// check to see if we have new or somehow empty list
 		if (list.length != 96) {
 			db.createData(day);
 			list = db.get(day);
@@ -68,7 +66,6 @@ angular.module('app.services', [])
 			}
 			list.push(object);
 		}
-		console.log(list);
 		db.set(day, list);
 	} 
 

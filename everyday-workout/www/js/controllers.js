@@ -20,17 +20,18 @@ angular.module('app.controllers', [])
 					"11:00", "11:15", "11:30", "11:45",
 					"12:00", "12:15", "12:30", "12:45"*/
 					];
+	$scope.mon = datesFactory.mon;
 	var length = $scope.dates.length - 1;
 	// fun fact [] interprets the value as the key
 	//$scope.edgeStyle = {0: {backgroundTop: "none"}, [length]: {backgroundBottom: "none"}};
 	//console.log($scope.edgeStyle);
 	$scope.select = function(index) {
-		$scope.dates[index].selected =	!$scope.dates[index].selected
+		$scope.mon[index].selected = !$scope.mon[index].selected
 		console.log($scope.dates[index]);
-		if ($scope.dates[index].style.backgroundColor == "white") {
-			$scope.dates[index].style.backgroundColor = "#b2b2b2";
+		if ($scope.mon[index].style.backgroundColor == "white") {
+			$scope.mon[index].style.backgroundColor = "#b2b2b2";
 		} else {
-			$scope.dates[index].style.backgroundColor = "white";
+			$scope.mon[index].style.backgroundColor = "white";
 		}
 	}
 })

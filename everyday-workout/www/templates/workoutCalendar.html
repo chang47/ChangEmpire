@@ -1,8 +1,23 @@
-<style type="text/css">
-    
-</style>
+<div class="tabs-striped tabs-top">
+    <ion-tabs class="tabs-positive tabs-top tabs-background-positive tabs-color-light">
+        <ion-tab title="Mon" ng-click="swapTab(0)">
+        </ion-tab>
+        <ion-tab title="Tue">
+        </ion-tab>
+        <ion-tab title="Wed">
+        </ion-tab>
+        <ion-tab title="Thu">
+        </ion-tab>
+        <ion-tab title="Fri">
+        </ion-tab>
+        <ion-tab title="Sat">
+        </ion-tab>
+        <ion-tab title="Sun">
+        </ion-tab>
+    </ion-tabs>
+</div>
 <ion-view title="Workout Calendar">
-    <ion-content overflow-scroll="true" padding="true" class="has-header">
+    <ion-content overflow-scroll="true" padding="true" class="has-tabs-top"> <!-- important class!! -->
         <a href="#/timeEditor" class="button button-stable button-block ">More Specific</a>
         <div>
             <ion-scroll zooming="false" direction="y" style="height:500px;">
@@ -15,9 +30,9 @@
                                     <!-- the time title -->
                                     <table class="time-name">
                                         <tbody>
-                                            <tr ng-repeat="date in dates">
+                                            <tr ng-repeat="date in mon">
                                                 <!-- todo might consider refactoring to just check if the elements are the last or first one -->
-                                                <td ng-style="date.style2">{{ date.time }}</td>
+                                                <td ng-style="date.style2">{{ date.date }}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -26,7 +41,7 @@
                                     <!-- The button for the time -->
                                     <table class="time-button">
                                         <tbody>
-                                            <tr ng-repeat="date in dates">
+                                            <tr ng-repeat="date in mon">
                                                 <td ng-style="date.style" ng-click="select($index)">&nbsp;</td>
                                             </tr>
                                         </tbody>
