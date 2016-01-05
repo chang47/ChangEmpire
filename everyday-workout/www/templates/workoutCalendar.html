@@ -14,30 +14,22 @@
                                     <!-- the time title, need to ng repeat this -->
                                     <table class="time-name">
                                         <tbody>
-                                            <tr>
-                                                <td style="border-top: none;">0:00</td>
-                                            </tr>
                                             <tr ng-repeat="date in dates">
-                                                <td>{{ date }}</td>
-                                            </tr>
-                                            <tr> 
-                                                <td style="border-bottom: none;">1:00</td>
+                                                <!-- todo might consider refactoring to just check if the elements are the last or first one -->
+                                                <td ng-style="date.style2">{{ date.time }}</td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </td>
-                                <td>
+                                 <td style="width: 80%;">
                                     <!-- The button for the title, ng repeat this -->
                                     <table class="time-button">
                                         <tbody>
-                                            <tr>
+    <!--                                         <tr>
                                                 <td style="border-top: none;"></td>
-                                            </tr>
+                                            </tr> -->
                                             <tr ng-repeat="date in dates">
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td style="border-bottom: none;"></td>
+                                                <td ng-style="date.style" ng-click="select($index)">&nbsp;</td>
                                             </tr>
                                         </tbody>
                                     </table>
