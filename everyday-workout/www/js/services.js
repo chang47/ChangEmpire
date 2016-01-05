@@ -9,6 +9,7 @@ angular.module('app.services', [])
 	dates.fri = dateDb.get('fri');
 	dates.sat = dateDb.get('sat');
 	dates.sun = dateDb.get('sun'); 
+	dates.all = [dates.mon, dates.tue, dates.wed, dates.thu, dates.fri, dates.sat, dates.sun]
 	dates.save = function(day, list) {
 		if (list.length != 4 * 24) {
 			return "error";

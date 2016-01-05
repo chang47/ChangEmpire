@@ -1,21 +1,19 @@
-<div class="tabs-striped tabs-top">
-    <ion-tabs class="tabs-positive tabs-top tabs-background-positive tabs-color-light">
-        <ion-tab title="Mon" ng-click="swapTab(0)">
-        </ion-tab>
-        <ion-tab title="Tue">
-        </ion-tab>
-        <ion-tab title="Wed">
-        </ion-tab>
-        <ion-tab title="Thu">
-        </ion-tab>
-        <ion-tab title="Fri">
-        </ion-tab>
-        <ion-tab title="Sat">
-        </ion-tab>
-        <ion-tab title="Sun">
-        </ion-tab>
-    </ion-tabs>
-</div>
+<ion-tabs class="tabs-striped tabs-positive tabs-top tabs-background-positive tabs-color-light">
+    <ion-tab title="Mon" on-select="swapTab(0)">
+    </ion-tab>
+    <ion-tab title="Tue" on-select="swapTab(1)">
+    </ion-tab>
+    <ion-tab title="Wed" on-select="swapTab(2)">
+    </ion-tab>
+    <ion-tab title="Thu" on-select="swapTab(3)">
+    </ion-tab>
+    <ion-tab title="Fri" on-select="swapTab(4)">
+    </ion-tab>
+    <ion-tab title="Sat" on-select="swapTab(5)">
+    </ion-tab>
+    <ion-tab title="Sun" on-select="swapTab(6)">
+    </ion-tab>
+</ion-tabs>
 <ion-view title="Workout Calendar">
     <ion-content overflow-scroll="true" padding="true" class="has-tabs-top"> <!-- important class!! -->
         <a href="#/timeEditor" class="button button-stable button-block ">More Specific</a>
@@ -30,7 +28,7 @@
                                     <!-- the time title -->
                                     <table class="time-name">
                                         <tbody>
-                                            <tr ng-repeat="date in mon">
+                                            <tr ng-repeat="date in dates[tab]">
                                                 <!-- todo might consider refactoring to just check if the elements are the last or first one -->
                                                 <td ng-style="date.style2">{{ date.date }}</td>
                                             </tr>
@@ -41,7 +39,7 @@
                                     <!-- The button for the time -->
                                     <table class="time-button">
                                         <tbody>
-                                            <tr ng-repeat="date in mon">
+                                            <tr ng-repeat="date in dates[tab]">
                                                 <td ng-style="date.style" ng-click="select($index)">&nbsp;</td>
                                             </tr>
                                         </tbody>
@@ -53,6 +51,7 @@
                 </div>            
             </ion-scroll>
             <p>
+                <br />
                 The code for the calendar inside a scroll bar
                 <b>HTML</b>for
                 <u>flavor</u>, probably a quick way to selec the workout fopr the day
