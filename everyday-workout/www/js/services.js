@@ -10,11 +10,18 @@ angular.module('app.services', [])
 	dates.sat = dateDb.get('sat');
 	dates.sun = dateDb.get('sun'); 
 	dates.all = [dates.mon, dates.tue, dates.wed, dates.thu, dates.fri, dates.sat, dates.sun]
-	dates.save = function(day, list) {
-		if (list.length != 4 * 24) {
+
+	dates.save = function(list) {
+		if (list.length != 7) {
 			return "error";
 		} else {
-			dateDb.set(day, list);
+			dateDb.set('mon', list[0]);
+			dateDb.set('tue', list[1]);
+			dateDb.set('wed', list[2]);
+			dateDb.set('thu', list[3]);
+			dateDb.set('fri', list[4]);
+			dateDb.set('sat', list[5]);
+			dateDb.set('sun', list[6]);
 		}
 	}
 	return dates;

@@ -16,7 +16,7 @@
 </ion-tabs>
 <ion-view title="Workout Calendar">
     <ion-content overflow-scroll="true" padding="true" class="has-tabs-top"> <!-- important class!! -->
-        <a href="#/timeEditor" class="button button-stable button-block ">More Specific</a>
+        <a href="#/timeEditor/{{tab}}" class="button button-stable button-block ">More Specific</a>
         <div>
             <ion-scroll zooming="false" direction="y" style="height:500px;">
                 <div>
@@ -50,12 +50,7 @@
                     </table>
                 </div>            
             </ion-scroll>
-            <p>
-                <br />
-                The code for the calendar inside a scroll bar
-                <b>HTML</b>for
-                <u>flavor</u>, probably a quick way to selec the workout fopr the day
-            </p>
+            <button class="button button-full button-assertive" ng-show="changed" ng-click="saveChanges()">Save</button>
         </div>
     </ion-content>
 </ion-view>
