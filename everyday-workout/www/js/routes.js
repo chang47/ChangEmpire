@@ -21,7 +21,7 @@ angular.module('app.routes', [])
     })
   
     .state('workoutTimeEditor', {
-      url: '/timeEditor',
+      url: '/timeEditor/:day',
       templateUrl: 'templates/workoutTimeEditor.html',
       controller: 'workoutTimeEditorCtrl'
     })
