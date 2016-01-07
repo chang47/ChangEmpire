@@ -4,7 +4,7 @@ angular.module('app.controllers', [])
 
 })
    
-.controller('workoutCalendarCtrl', function($scope, datesFactory) {
+.controller('workoutCalendarCtrl', function($scope, $ionicPopup, datesFactory) {
 	$scope.tab = 0;
 	$scope.dates = datesFactory.all;
 	$scope.changed = false;
@@ -35,6 +35,44 @@ angular.module('app.controllers', [])
 		datesFactory.save($scope.dates);
 		$scope.selected = [];
 		$scope.changed = false;
+	}
+
+	$scope.clear = function() {
+		var day;
+		if ($scope.tab == 0) {
+			day = "Monday";
+		} else if ($scope.tab == 1) {
+			day = "Tuesday";
+		} else if ($scope.tab == 2) {
+			day = "Wednesday";
+		} else if ($scope.tab == 3) {
+			day = "Thursday";
+		} else if ($scope.tab == 4) {
+			day = "Friday";
+		} else if ($scope.tab == 5) {
+			day = "Saturday";
+		} else {
+			day = "Sunday";
+		} 
+		var popup = $ionicPopup.show({
+			title: 'Clear Time Slots',
+			template: "<center>Clear all time slots for " + day + "?</center>",
+			scope: $scope,
+			buttons: [
+				{ text: 'No'},
+				{ text: '<b>Yes</b>',
+				  type: 'button-positive',
+				  onTap: function(e) {
+				  	$scope.changed = true;
+				  	list = $scope.dates[$scope.tab];
+				  	for (var i = 0; i < list.length; i++) {
+				  	  list[i].style.backgroundColor = "white";
+				  	  list[i].selected = false;
+				  	}
+				  }
+				}
+			]
+		});
 	}
 })
    

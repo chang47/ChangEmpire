@@ -1,3 +1,10 @@
+<!-- custom back button since the tabs don't allow custom back -->
+<ion-nav-bar class="bar-positive">
+    <ion-nav-buttons side="left">
+        <button ng-if="$root.showCustomBack" ng-click="$root.goBack()" class="button button-clear"><i class="icon ion-chevron-left"></i></button>
+    </ion-nav-buttons>
+</ion-nav-bar>
+
 <ion-tabs class="tabs-striped tabs-positive tabs-top tabs-background-positive tabs-color-light">
     <ion-tab title="Mon" on-select="swapTab(0)">
     </ion-tab>
@@ -15,6 +22,13 @@
     </ion-tab>
 </ion-tabs>
 <ion-view title="Workout Calendar">
+    <!-- unknown reason, but this has to be outside -->
+    <ion-nav-buttons side="right">
+        <button class="button" ng-click="clear()">
+            <i class="icon ion-close-round">Clear</i>
+        </button>
+    </ion-nav-buttons>
+
     <ion-content overflow-scroll="true" padding="true" class="has-tabs-top"> <!-- important class!! -->
         <a href="#/timeEditor/{{tab}}" class="button button-stable button-block ">More Specific</a>
         <div>
