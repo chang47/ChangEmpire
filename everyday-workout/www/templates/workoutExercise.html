@@ -1,57 +1,5 @@
 <!DOCTYPE html>
 <ion-view title="Workout Exercise">
-	<html ng-app="angularjs-starter">
-		<head>
-			<script type="text/javascript" src="angular-round-progress-directive.js"></script>
-			
-			  <script src="angular.min.js"></script>
-
-			  <script src="angular-round-progress-directive.js"></script>
-
-				<script>
-					var app = angular.module('angularjs-starter', ['angular.directives-round-progress']);
-					var time = performance.now();
-					
-					app.controller('MainCtrl', function($scope, $interval) {
-						//When I call this, I need to adjust what goes in, too, or it breaks.
-						$scope.roundProgressData = {
-							label: 11,
-							percentage: 11
-						}
-
-						// Here I synchronize the value of label and percentage in order to have a nice demo
-						$scope.$watch('roundProgressData', function (newValue, oldValue) {
-							newValue.percentage = newValue.label / 100;
-						}, true)
-						
-						$scope.loop('loopAlarm',function(){
-							for(var l=0;l<100;l++){
-								$scope.percentage = l;
-							}
-						});
-						//So I want it to loop the $watch part so it keeps redrawing. Maybe change the roundProgressData
-						//so it also is changed based on numbers.
-					});
-				</script>
-		</head>
-		
-		<body ng-controller="MainCtrl">
-			<ion-content overflow-scroll="true" padding="true" class="has-header">
-				<div style="line-height: 250px; border: 1px solid rgb(238, 238, 238); border-radius: 3px; text-align: center; width: 100%; height: auto; background-color: rgb(255, 255, 255);">
-					<i class="icon ion-image" style="font-size: 64px; color: rgb(136, 136, 136); vertical-align: middle;"></i>
-				</div>
-				<div>
-					<p>
-						Add some
-						<b>HTML</b>for
-						<u>flavor</u>
-						<div ang:round:progress data-round-progress-model="roundProgressData"
+     <div ang:round:progress data-round-progress-model="roundProgressData"
                             data-round-progress-label-color="#505769"></div>
-						
-					</p>
-				</div>
-				<a href="#/ads" class="button button-stable button-block ">Finish</a>
-			</ion-content>
-		</body>
-	</html>
 </ion-view>

@@ -1,4 +1,4 @@
-angular.module('app.controllers', ['angular.directives-round-progress'])
+angular.module('app.controllers', [])
 
 .controller('workoutMainMenuCtrl', function($scope) {
 
@@ -46,8 +46,12 @@ angular.module('app.controllers', ['angular.directives-round-progress'])
 
 })
    
-.controller('workoutExerciseCtrl', function($scope) {
-
+.controller('workoutExerciseCtrl', function($scope, $interval) {
+	// Justin stuff
+	$scope.roundProgressData = {
+	  label: 10,
+	  percentage: 0.11
+	};
 })
    
 .controller('workoutAdsCtrl', function($scope) {
