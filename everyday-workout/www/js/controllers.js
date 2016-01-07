@@ -1,5 +1,5 @@
-angular.module('app.controllers', [])
-  
+angular.module('app.controllers', ['angular.directives-round-progress'])
+
 .controller('workoutMainMenuCtrl', function($scope) {
 
 })
