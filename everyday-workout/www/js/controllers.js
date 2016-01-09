@@ -48,10 +48,29 @@ angular.module('app.controllers', [])
    
 .controller('workoutExerciseCtrl', function($scope, $interval) {
 	// Justin stuff
+	//var timePercent = 0;
+	//var loops = 0;
+	
+	
 	$scope.roundProgressData = {
-	  label: 10,
-	  percentage: 0.11
-	};
+		label: 0,
+		percentage: 0
+	}
+	
+	
+	$scope.timeLoop = function(){
+		if ($scope.roundProgressData.percentage < 1){
+			$scope.roundProgressData.percentage += .05;
+		}
+		else {
+			$scope.roundProgressData.percentage = 0;
+			++$scope.roundProgressData.label;
+		}
+	}
+	
+	$interval( function(){ $scope.timeLoop(); }, 50);
+	
+	
 })
    
 .controller('workoutAdsCtrl', function($scope) {
