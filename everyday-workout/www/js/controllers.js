@@ -76,8 +76,36 @@ angular.module('app.controllers', [])
 	}
 })
    
-.controller('workoutTimeEditorCtrl', function($scope, $stateParams) {
-	console.log($stateParams);
+.controller('workoutTimeEditorCtrl', function($scope, $stateParams, $cordovaDatePicker) {
+	var options = {
+    date: new Date(),
+    mode: 'date', // or 'time'
+    minDate: new Date() - 10000,
+    allowOldDates: true,
+    allowFutureDates: false,
+    doneButtonLabel: 'DONE',
+    doneButtonColor: '#F2F3F4',
+    cancelButtonLabel: 'CANCEL',
+    cancelButtonColor: '#000000'
+  };
+
+  document.addEventListener("deviceready", function () {
+
+    $scope.click = function() { 
+    	$cordovaDatePicker.show(options).then(function(date) {
+        	alert(date);
+    	});
+    }
+
+  }, false);
+
+	$scope.click = function() {
+		$cordovaDatePicker.
+		show(
+			options).then(function(date){
+        	alert(date);
+    	});
+	};
 })
    
 .controller('workoutGlossaryCtrl', function($scope) {

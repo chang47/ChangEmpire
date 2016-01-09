@@ -11,11 +11,38 @@
     <script src="lib/ionic/js/ionic.bundle.js"></script>
     
     <!-- cordova script (this will be a 404 during development) -->
+    <script src="lib/ngCordova/dist/ng-cordova.js"></script>
     <script src="cordova.js"></script>
 
     <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
     <link href="css/ionic.app.css" rel="stylesheet">
     -->
+
+        <script type="text/javascript">
+        var options = {
+            date: new Date(),
+            mode: 'date', // or 'time'
+            minDate: new Date() - 10000,
+            allowOldDates: true,
+            allowFutureDates: false,
+            doneButtonLabel: 'DONE',
+            doneButtonColor: '#F2F3F4',
+            cancelButtonLabel: 'CANCEL',
+            cancelButtonColor: '#000000'
+          };
+          console.log()
+          document.addEventListener("deviceready", function () {
+            console.log("what");
+            $cordovaDatePicker.show(options).then(function(date){
+                alert(date);
+            });
+
+          }, false);
+
+    </script>
+
+
+    
 
     <script src="js/app.js"></script>
     <script src="js/controllers.js"></script>
@@ -23,6 +50,7 @@
     <script src="js/services.js"></script>
     <script src="js/directives.js"></script>
     <script type="text/javascript" src="templates/angular-round-progress-directive.js"></script>
+    <script src="lib/ionic-timepicker/dist/ionic-timepicker.bundle.min.js"></script>
 
   </head>
   <body ng-app="app" animation="slide-left-right-ios7">
