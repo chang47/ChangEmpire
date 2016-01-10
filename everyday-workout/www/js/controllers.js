@@ -77,17 +77,21 @@ angular.module('app.controllers', [])
 })
    
 .controller('workoutTimeEditorCtrl', function($scope, $stateParams, $cordovaDatePicker) {
+	var date = new Date();
+	date.setMinutes(0);
+	alert('the date ' + date);
 	var options = {
-    date: new Date(),
-    mode: 'date', // or 'time'
-    minDate: new Date() - 10000,
-    allowOldDates: true,
-    allowFutureDates: false,
-    doneButtonLabel: 'DONE',
-    doneButtonColor: '#F2F3F4',
-    cancelButtonLabel: 'CANCEL',
-    cancelButtonColor: '#000000'
-  };
+	    'date': date,
+	    mode: 'time', // or 'time'
+	    'minDate': date,
+	    allowOldDates: true,
+	    allowFutureDates: false,
+	    doneButtonLabel: 'DONE',
+	    doneButtonColor: '#F2F3F4',
+	    cancelButtonLabel: 'CANCEL',
+	    cancelButtonColor: '#000000',
+	    minuteInterval: 15
+  	};
 
   document.addEventListener("deviceready", function () {
 
