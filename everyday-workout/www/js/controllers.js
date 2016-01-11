@@ -77,39 +77,54 @@ angular.module('app.controllers', [])
 })
    
 .controller('workoutTimeEditorCtrl', function($scope, $stateParams, $cordovaDatePicker) {
-	var date = new Date();
-	date.setMinutes(0);
-	alert('the date ' + date);
-	var options = {
-	    'date': date,
-	    mode: 'time', // or 'time'
-	    'minDate': date,
-	    allowOldDates: true,
-	    allowFutureDates: false,
-	    doneButtonLabel: 'DONE',
-	    doneButtonColor: '#F2F3F4',
-	    cancelButtonLabel: 'CANCEL',
-	    cancelButtonColor: '#000000',
-	    minuteInterval: 15
-  	};
+	
 
-  document.addEventListener("deviceready", function () {
-
-    $scope.click = function() { 
-    	$cordovaDatePicker.show(options).then(function(date) {
-        	alert(date);
-    	});
-    }
-
-  }, false);
-
-	$scope.click = function() {
-		$cordovaDatePicker.
-		show(
-			options).then(function(date){
-        	alert(date);
-    	});
+	$scope.convertTime = function(date) {
+  		var newMinute = date.getMinutes() % 15;
+  		return new Date(date.getTime() - newMinute * 1000 * 60);
 	};
+	var date = $scope.convertTime(new Date());
+
+	$scope.startHour = date.getHours()
+	$scope.startMinute = date.getMinutes()
+
+	$scope.endHour = date.getHours()
+	$scope.endMinute = date.getMinutes()
+
+  	document.addEventListener("deviceready", function () {
+  		var options = {
+			    'date': new Date(),
+			    mode: 'time', // or 'time'
+			    'minDate': new Date(),
+			    allowOldDates: true,
+			    allowFutureDates: false,
+			    doneButtonLabel: 'DONE',
+			    doneButtonColor: '#F2F3F4',
+			    cancelButtonLabel: 'CANCEL',
+			    cancelButtonColor: '#000000'//,
+			    //minuteInterval: 15
+		  	};
+
+	    $scope.clickOne = function() { 
+	  		$cordovaDatePicker.show(options).then(function(date) {
+		  		var startTime = $scope.convertTime(date);
+	        	$scope.startHour = startTime.getHours();
+	        	$scope.startMinute = startTime.getMinutes();
+	        	alert($scope.startHour + " " + $scope.startMinute);
+	  		}, false);
+
+		};
+
+		$scope.clickTwo = function() { 
+	  		$cordovaDatePicker.show(options).then(function(date) {
+	  			var endTime = $scope.convertTime(date);
+	        	$scope.endHour = endTime.getHours();
+	        	$scope.endMinute = endTime.getMinutes();
+	        	alert($scope.endHour + " " + $scope.endMinute);
+	  		}, false);
+
+		};
+	});
 })
    
 .controller('workoutGlossaryCtrl', function($scope) {
