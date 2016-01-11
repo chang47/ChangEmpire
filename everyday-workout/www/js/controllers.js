@@ -126,10 +126,18 @@ angular.module('app.controllers', [])
 		};
 
 		$scope.addTime = function() {
-			if ($scope.startHour <= $scope.endHour && $scope.startMinute < $scope.endMinute) {
-				
-			} else {
-				alert("please provide a valid time");
+			alert('pressed');
+			var startPos = $scope.startHour * 4 + $scope.startMinute / 15;
+			var endPos = $scope.endHour * 4 + $scope.endMinute / 15;
+			var tab = $stateParams['day'];
+			for (var i = startPos; i < endPos; i++) {
+				dates[tab][i].selected = true;
+				dates[tab][i].style.backgroundColor = "#b2b2b2";
+			}
+			datesFactory.save(dates);
+			
+			if (endPos <= startPos) {
+				alert("provide valid time, you gave: " + $scope.startHour + ":" + $scope.startMinute + " " + $scope.endHour + ":" + $scope.endMinute); // toast
 			}
 		}
 	});
