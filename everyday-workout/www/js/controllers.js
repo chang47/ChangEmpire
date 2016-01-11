@@ -76,8 +76,8 @@ angular.module('app.controllers', [])
 	}
 })
    
-.controller('workoutTimeEditorCtrl', function($scope, $stateParams, $cordovaDatePicker) {
-	
+.controller('workoutTimeEditorCtrl', function($scope, $stateParams, $cordovaDatePicker, $cordovaToast, datesFactory) {
+	var dates = datesFactory.all	
 
 	$scope.convertTime = function(date) {
   		var newMinute = date.getMinutes() % 15;
@@ -124,6 +124,14 @@ angular.module('app.controllers', [])
 	  		}, false);
 
 		};
+
+		$scope.addTime = function() {
+			if ($scope.startHour <= $scope.endHour && $scope.startMinute < $scope.endMinute) {
+				
+			} else {
+				alert("please provide a valid time");
+			}
+		}
 	});
 })
    
