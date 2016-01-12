@@ -83,13 +83,23 @@ angular.module('app.controllers', [])
   		var newMinute = date.getMinutes() % 15;
   		return new Date(date.getTime() - newMinute * 1000 * 60);
 	};
+
+	$scope.convertMinute = function(minute) {
+		if (minute == 0) {
+			return (minute + "0");
+		} else {
+			return minute;
+		}
+	}
+
 	var date = $scope.convertTime(new Date());
 
-	$scope.startHour = date.getHours()
-	$scope.startMinute = date.getMinutes()
-
-	$scope.endHour = date.getHours()
-	$scope.endMinute = date.getMinutes()
+	$scope.startHour = date.getHours();
+	$scope.startMinute = date.getMinutes();
+	$scope.startShowMinute = $scope.convertMinute($scope.startMinute);
+	$scope.endHour = date.getHours();
+	$scope.endMinute = date.getMinutes();
+	$scope.endShowMinute = $scope.convertMinute($scope.endMinute);
 
   	document.addEventListener("deviceready", function () {
   		var options = {
@@ -110,9 +120,8 @@ angular.module('app.controllers', [])
 		  		var startTime = $scope.convertTime(date);
 	        	$scope.startHour = startTime.getHours();
 	        	$scope.startMinute = startTime.getMinutes();
-	        	alert($scope.startHour + " " + $scope.startMinute);
+	        	$scope.startShowMinute = $scope.convertMinute($scope.startMinute);
 	  		}, false);
-
 		};
 
 		$scope.clickTwo = function() { 
@@ -120,13 +129,11 @@ angular.module('app.controllers', [])
 	  			var endTime = $scope.convertTime(date);
 	        	$scope.endHour = endTime.getHours();
 	        	$scope.endMinute = endTime.getMinutes();
-	        	alert($scope.endHour + " " + $scope.endMinute);
+	        	$scope.endShowMinute = $scope.convertMinute($scope.endMinute);
 	  		}, false);
-
 		};
 
 		$scope.addTime = function() {
-			alert('pressed');
 			var startPos = $scope.startHour * 4 + $scope.startMinute / 15;
 			var endPos = $scope.endHour * 4 + $scope.endMinute / 15;
 			var tab = $stateParams['day'];
@@ -137,7 +144,10 @@ angular.module('app.controllers', [])
 			datesFactory.save(dates);
 			
 			if (endPos <= startPos) {
-				alert("provide valid time, you gave: " + $scope.startHour + ":" + $scope.startMinute + " " + $scope.endHour + ":" + $scope.endMinute); // toast
+				$cordovaToast.show('Please enter valid time', 'long', 'bottom');
+			} else {
+				$cordovaToast.show("" + $scope.startHour + ":" + $scope.startShowMinute + " - " + $scope.endHour 
+					+ ":" + $scope.endShowMinute + " added!", 'long', 'bottom');
 			}
 		}
 	});
