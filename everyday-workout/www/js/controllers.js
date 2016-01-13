@@ -1,6 +1,19 @@
 angular.module('app.controllers', [])
 
-.controller('workoutMainMenuCtrl', function($scope) {
+.controller('workoutMainMenuCtrl', function($scope, $state) {
+    var push = new Ionic.Push({
+  		"debug": true,
+  		"onNotification": function(notification) {
+  			// need to pass in a timestamp param that can be used to calculate
+  			// how much time they have left.
+    		$state.go('workoutExercise');
+  		},
+
+    });
+
+    push.register(function(token) {
+      console.log("Device token:",token.token);
+    });
 
 })
    
