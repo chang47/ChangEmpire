@@ -11,10 +11,6 @@ angular.module('app.controllers', [])
 
     });
 
-    push.register(function(token) {
-      console.log("Device token:",token.token);
-    });
-
 })
    
 .controller('workoutCalendarCtrl', function($scope, $ionicPopup, datesFactory) {

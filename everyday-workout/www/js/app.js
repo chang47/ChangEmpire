@@ -22,5 +22,10 @@ angular.module('app', ['ionic','ionic.service.core', 'app.controllers', 'app.rou
       StatusBar.styleDefault();
     }
 
+    // check user and regsiter code
+    push.register(function(token) {
+      console.log("Device token:",token.token);
+    });
+
   });
 })
