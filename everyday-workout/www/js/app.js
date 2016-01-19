@@ -23,9 +23,9 @@ angular.module('app', ['ionic','ionic.service.core', 'app.controllers', 'app.rou
     }
 
     // check user and regsiter codehow much 
-    push.register(function(token) {
+/*    push.register(function(token) {
       console.log("Device token:",token.token);
-    });
+    });*/
 
   });
 })

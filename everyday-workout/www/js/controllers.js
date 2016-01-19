@@ -1,6 +1,6 @@
 angular.module('app.controllers', [])
 
-.controller('workoutMainMenuCtrl', function($scope, $state) {
+.controller('workoutMainMenuCtrl', function($scope, $state, $http) {
     var push = new Ionic.Push({
   		"debug": true,
   		"onNotification": function(notification) {
@@ -10,6 +10,19 @@ angular.module('app.controllers', [])
   		},
 
     });
+
+    $scope.api = function() {
+    	console.log('function called');
+    	$http({
+    		method: 'GET',
+    		url: 'http://localhost:3000/test'
+    	}).then(function successCallback(response) {
+    		console.log("success " + response.data.message);
+    	}), function errorCallback(resonse) {
+    		alert("failed " + response[0]);
+    		console.log("success " + response);
+    	}
+    };
 
 })
    
