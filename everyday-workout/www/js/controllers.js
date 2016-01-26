@@ -47,28 +47,35 @@ angular.module('app.controllers', [])
 })
    
 .controller('workoutExerciseCtrl', function($scope, $interval) {
-	// Justin stuff
-	//var timePercent = 0;
-	//var loops = 0;
-	
+	// Note to self: import a number in to the label.
+	var amountTimes = 2;
 	
 	$scope.roundProgressData = {
-		label: 0,
+		label: 2,
 		percentage: 0
 	}
 	
 	
 	$scope.timeLoop = function(){
-		if ($scope.roundProgressData.percentage < 1){
+		if ($scope.roundProgressData.percentage <= 1){
 			$scope.roundProgressData.percentage += .05;
 		}
 		else {
 			$scope.roundProgressData.percentage = 0;
-			++$scope.roundProgressData.label;
+			--$scope.roundProgressData.label;
+		}
+		
+		if ($scope.roundProgressData.label <= 0) {
+			$scope.roundProgressData.percentage = 0;
+			$scope.roundProgressData.label = 0;
+			
+			$interval.cancel(callLoop);
+			console.log("Failure Statement");
+			
 		}
 	}
-	
-	$interval( function(){ $scope.timeLoop(); }, 50);
+		
+	var callLoop = $interval( function(){ $scope.timeLoop(); }, 50);
 	
 	
 })
@@ -76,4 +83,3 @@ angular.module('app.controllers', [])
 .controller('workoutAdsCtrl', function($scope) {
 
 })
- 
