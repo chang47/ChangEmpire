@@ -22,6 +22,24 @@ angular.module('app', ['ionic','ionic.service.core', 'app.controllers', 'app.rou
       StatusBar.styleDefault();
     }
 
+    window.parsePlugin.initialize(appId, clientKey, function() {
+      console.log('Parse initialized successfully')
+
+      window.parsePlugin.subscribe('Test1', function() {
+        console.log("subscribed!");
+
+        window.parsePlugin.getInstallationId(function(id) {
+          console.log("got ID " + id);
+        }, function(e) {
+          console.log("failed to get id");
+        });
+      }, function(e) {
+        console.log("failed to subscribe");
+      });
+    }, function(e) {
+      console.log("failed to initialize");
+    });
+
     // check user and regsiter codehow much 
 /*    push.register(function(token) {
       console.log("Device token:",token.token);
