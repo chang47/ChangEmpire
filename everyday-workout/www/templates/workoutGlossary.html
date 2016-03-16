@@ -1,14 +1,24 @@
 <ion-view title="Workout Glossary">
+
     <ion-content overflow-scroll="true" padding="true" class="has-header">
-        <div class="list card">
-            <div class="item item-divider">Card</div>
-            <div class="item item-body"></div>
-            <div class="item item-divider">Note: I don't know if there's an openable box.</div>
-        </div>
-        <ion-list>
-            <ion-item>Push Up</ion-item>
-            <ion-item>Sit up</ion-item>
-            <ion-item>Item 3</ion-item>
-        </ion-list>
+		<ion-list>
+			<div ng-repeat="group in groups">
+				<ion-item class="item-stable"
+						ng-click="toggleGroup(group)"
+						ng-class="{active:
+						isGroupShown(group)}">
+					<i class="icon"
+					ng-class="isGroupShown(group) ?
+					'ion-minus' : 'ion-plus'"></i>
+					Exercise: {{group.name}}
+				</ion-item>
+				<ion-item class="item-accordion"
+							ng-repeat="item in group.items"
+							ng-show="isGroupShown(group)">
+					{{item}}<br>
+					<img src="../image/pushup.png">
+				</ion-item>
+			</div>
+		</ion-list>
     </ion-content>
 </ion-view>

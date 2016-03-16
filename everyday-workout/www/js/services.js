@@ -78,5 +78,20 @@ angular.module('app.services', [])
 	} 
 
 	return db;
+}])
+
+.factory('setsrepFactory',['setrepDB',function(setrepDB){
+	setsrep = {};
+	setsrep.sets() = setrepDB.get('set');
+	setsrep.reps() = setrepDB.get('rep');
+	
+	setsreps.save = function(list){
+		if (list.length != 2){
+			return "error";
+		} else {
+			dateDb.set('sets', list[0]);
+			dateDb.set('reps', list[1]);
+		}
+	}
 }]);
 

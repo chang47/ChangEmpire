@@ -42,10 +42,6 @@ angular.module('app.controllers', [])
 	console.log($stateParams);
 })
    
-.controller('workoutGlossaryCtrl', function($scope) {
-
-})
-   
 .controller('workoutExerciseCtrl', function($scope, $interval) {
 	// Note to self: import a number in to the label.
 	var amountTimes = 2;
@@ -83,3 +79,34 @@ angular.module('app.controllers', [])
 .controller('workoutAdsCtrl', function($scope) {
 
 })
+
+.controller('workoutGlossaryCtrl', function($scope) {
+  $scope.groups = [];
+  for (var i=0; i<10; i++) {
+    $scope.groups[i] = {
+      name: 'Push Up',
+      items: [],
+	  image: [],
+    };
+    //for (var j=0; j<3; j++) {
+    $scope.groups[i].items.push('This is a pushup:');
+    $scope.groups[i].image.push('../image/pushup.png');
+    //}
+  }
+  
+  /*
+   * if given group is the selected group, deselect it
+   * else, select the given group
+   */
+  $scope.toggleGroup = function(group) {
+    if ($scope.isGroupShown(group)) {
+      $scope.shownGroup = null;
+    } else {
+      $scope.shownGroup = group;
+    }
+  };
+  $scope.isGroupShown = function(group) {
+    return $scope.shownGroup === group;
+  };
+  
+});
