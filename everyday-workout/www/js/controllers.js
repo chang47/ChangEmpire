@@ -80,33 +80,44 @@ angular.module('app.controllers', [])
 
 })
 
-.controller('workoutGlossaryCtrl', function($scope) {
-  $scope.groups = [];
-  for (var i=0; i<10; i++) {
-    $scope.groups[i] = {
-      name: 'Push Up',
-      items: [],
-	  image: [],
-    };
+.controller('workoutGlossaryCtrl', function($scope,exerciseFactory) {
+	$scope.disabled = true;
+	$scope.groups = exerciseFactory;
+  //for (var i=0; i<10; i++) {
     //for (var j=0; j<3; j++) {
-    $scope.groups[i].items.push('This is a pushup:');
-    $scope.groups[i].image.push('../image/pushup.png');
     //}
-  }
+  //}
   
   /*
    * if given group is the selected group, deselect it
    * else, select the given group
    */
-  $scope.toggleGroup = function(group) {
-    if ($scope.isGroupShown(group)) {
-      $scope.shownGroup = null;
-    } else {
-      $scope.shownGroup = group;
+    $scope.toggleGroup = function(group) {
+      if ($scope.isGroupShown(group)) {
+        $scope.shownGroup = null;
+      } else {
+    	$scope.shownGroup = group;
+      }
+    };
+    $scope.isGroupShown = function(group) {
+    	return $scope.shownGroup === group;
+    };
+
+    $scope.changed = function() {
+    	console.log($scope.groups);
+    	$scope.disabled = false;
     }
-  };
-  $scope.isGroupShown = function(group) {
-    return $scope.shownGroup === group;
-  };
-  
+
+    $scope.save = function(){
+    	console.log("Saved Changes: ",$scope.groups);
+    	for(var numOfGroups=0;numOfGroups<$scope.groups.length;numOfGroups++){
+    		if ($scope.groups[numOfGroups].sets){
+    			$scope.groups.sets = 0;
+    		}
+    		if ($scope.groups[numOfGroups].reps){
+    			$scope.groups.reps = 0;
+    		}
+    	}
+	    	exerciseFactory.save($scope.groups);
+    }
 });

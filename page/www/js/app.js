@@ -6,6 +6,7 @@
 angular.module('starter', ['ionic'])
 
 .run(function($ionicPlatform) {
+	//basically, do this on run. It's a constructor.
 	$ionicPlatform.ready(function() {
 		if(window.cordova && window.cordova.plugins.Keyboard) {
 			// Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -25,6 +26,7 @@ angular.module('starter', ['ionic'])
 
 .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
 	$stateProvider
+	//Basically says what the state is.
 		.state('index', {
 			url: '/',
 			templateUrl: 'templates/index.html',

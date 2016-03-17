@@ -12,13 +12,37 @@
 					'ion-minus' : 'ion-plus'"></i>
 					Exercise: {{group.name}}
 				</ion-item>
-				<ion-item class="item-accordion"
-							ng-repeat="item in group.items"
+ 				<ion-item class="item-accordion"
+							ng-repeat="group in groups"
 							ng-show="isGroupShown(group)">
-					{{item}}<br>
-					<img src="../image/pushup.png">
+					<img src={{group.image}}>
+					<label class="item item-input-wrapper">
+  						<span class="input-label">Sets</span>
+  						<input type="tel" placeholder='Current amount: {{group.sets}}' value={{group.sets}} ng-keydown='changed()' ng-model=group.sets ng-model-options="{updateOn: 'blur'}">
+					</label>
+
+					<label class="item item-input-wrapper">
+  						<span class="input-label">Reps</span>
+  						<input type="tel" placeholder='Current amount: {{group.reps}}' value={{group.reps}} ng-keydown='changed()' ng-model=group.reps ng-model-options="{updateOn: 'blur'}">
+					</label>
+
+
+					<ion-checkbox ng-model="isChecked" ng-checked={{group.enabled}} 
+					ng-click='changed()'>
+						Enabled?
+					</ion-checkbox>
 				</ion-item>
 			</div>
-		</ion-list>
+
+			<div class="button-bar">
+	  			<button class="button button button-positive" ng-disabled=disabled ng-click="save()">
+	      			Save
+	   			</button>
+	  			<button class="button button button-stable">
+	      			Cancel
+	   			</button>
+   			</div>
+
+			</ion-list>
     </ion-content>
 </ion-view>

@@ -80,18 +80,47 @@ angular.module('app.services', [])
 	return db;
 }])
 
-.factory('setsrepFactory',['setrepDB',function(setrepDB){
-	setsrep = {};
-	setsrep.sets() = setrepDB.get('set');
-	setsrep.reps() = setrepDB.get('rep');
-	
-	setsreps.save = function(list){
-		if (list.length != 2){
+.factory('exerciseFactory',['exerciseDb',function(exerciseDb){
+	exercises = exerciseDb.get();
+	exercises.save = function(list){
+		console.log("In factory ",list);
+		if (list.length !=1){
+			console.log("Error");
 			return "error";
 		} else {
-			dateDb.set('sets', list[0]);
-			dateDb.set('reps', list[1]);
+			console.log("Calling set");
+			exerciseDb.set(exercises);
 		}
 	}
-}]);
 
+	return exercises;
+}])
+
+.factory('exerciseDb', ['$window',function($window){
+	db = {};
+	db.set = function(list){
+		console.log("Calling set");
+		$window.localStorage['exercises'] = JSON.stringify(list);
+	}
+
+	db.get = function(){
+		var list = JSON.parse($window.localStorage['exercises'] || '[]');
+
+		if (list.length == 0){
+			console.log("Called here");
+			db.createData();
+			list = db.get();
+		}
+		return list;
+	}
+
+	db.createData = function() {
+		var list = [];
+		list.push({ name:"Push up", sets:3, reps:5,enabled:true });
+
+		db.set(list);
+	}
+
+	return db;
+
+}]);
