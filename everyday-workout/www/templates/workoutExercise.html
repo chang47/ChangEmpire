@@ -2,6 +2,17 @@
 
 	<ion-content>
 		<center>
+		
+  		<button class="button button-clear button-full button-dark" ng-repeat="group in groups">
+  			<h1><b>Exercise: </b>{{group.name}}</h1>
+  		</button>
+  		<button class="button button-clear button-full button-dark" ng-repeat="group in groups">
+  			<h2><b>Sets:</b> {{group.sets}}</h2>
+  		</button>
+  		<button class="button button-clear button-full button-dark" ng-repeat="group in groups">
+  			<h2><b>Reps:</b>  {{group.reps}}</h2>
+  		</button>
+
 		<div ang:round:progress data-round-progress-model="roundProgressData"
                             data-round-progress-label-color="#505769"></div></center>
 				
