@@ -5,7 +5,10 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services', 'app.directives', 'angular.directives-round-progress'])
+
+
+angular.module('app', ['ionic','ionic.service.core', 'app.controllers', 'app.routes', 'app.services', 'app.directives', 
+  'angular.directives-round-progress', 'ngCordova'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -18,5 +21,29 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+
+    window.parsePlugin.initialize(appId, clientKey, function() {
+      console.log('Parse initialized successfully')
+
+      window.parsePlugin.subscribe('Test1', function() {
+        console.log("subscribed!");
+
+        window.parsePlugin.getInstallationId(function(id) {
+          console.log("got ID " + id);
+        }, function(e) {
+          console.log("failed to get id");
+        });
+      }, function(e) {
+        console.log("failed to subscribe");
+      });
+    }, function(e) {
+      console.log("failed to initialize");
+    });
+
+    // check user and regsiter codehow much 
+/*    push.register(function(token) {
+      console.log("Device token:",token.token);
+    });*/
+
   });
 })

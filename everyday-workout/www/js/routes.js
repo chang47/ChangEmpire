@@ -42,10 +42,10 @@ angular.module('app.routes', [])
       url: '/ads',
       templateUrl: 'templates/workoutAds.html',
       controller: 'workoutAdsCtrl'
-    })
+    });
         
       
-    ;
+    
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/main');
