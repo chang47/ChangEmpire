@@ -21,8 +21,16 @@ angular.module('app', ['ionic','ionic.service.core', 'app.controllers', 'app.rou
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+    
+    var push = new Ionic.Push({
+      "debug": true
+    });
 
-    var androidConfig = {
+    push.register(function(token) {
+      console.log("Device token:",token.token);
+    });
+
+    /*var androidConfig = {
       "senderID": "111111111"
     }
     console.log("RUN ISCALLED")
@@ -30,7 +38,7 @@ angular.module('app', ['ionic','ionic.service.core', 'app.controllers', 'app.rou
       console.log("success " + result)
     }, function(err) {
       console.log("err " + err)
-    })
+    })*/
     // check user and regsiter codehow much 
 /*    push.register(function(token) {
       console.log("Device token:",token.token);

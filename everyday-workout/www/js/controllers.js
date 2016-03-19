@@ -2,7 +2,7 @@ angular.module('app.controllers', [])
 
 .controller('workoutMainMenuCtrl', function($scope,$http) {
 
-	var push = new Ionic.Push({
+	/*var push = new Ionic.Push({
   		"debug": true,
   		"onNotification": function(notification) {
   			// need to pass in a timestamp param that can be used to calculate
@@ -10,7 +10,7 @@ angular.module('app.controllers', [])
     		$state.go('workoutExercise');
   		},
 
-    });
+    });*/
 
 	$scope.request = function() {
 			$http({
