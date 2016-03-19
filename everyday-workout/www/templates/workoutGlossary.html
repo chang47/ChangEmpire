@@ -2,7 +2,7 @@
 
     <ion-content overflow-scroll="true" padding="true" class="has-header">
 		<ion-list>
-			<div ng-repeat="group in groups">
+			<div ng-init="alert('initialized')" ng-repeat="group in groups">
 				<ion-item class="item-stable"
 						ng-click="toggleGroup(group)"
 						ng-class="{active:
@@ -18,12 +18,12 @@
 					<img src={{group.image}}>
 					<label class="item item-input-wrapper">
   						<span class="input-label">Sets</span>
-  						<input type="tel" placeholder='Current amount: {{group.sets}}' value={{group.sets}} ng-keydown='changed()' ng-model=group.sets ng-model-options="{updateOn: 'blur'}">
+  						<input type="tel" placeholder='Current amount: {{group.sets}}' value={{group.sets}} ng-keydown='changed()' ng-model=group.sets ng-model-options="{getterSetter: true}">
 					</label>
 
 					<label class="item item-input-wrapper">
   						<span class="input-label">Reps</span>
-  						<input type="tel" placeholder='Current amount: {{group.reps}}' value={{group.reps}} ng-keydown='changed()' ng-model=group.reps ng-model-options="{updateOn: 'blur'}">
+  						<input type="tel" placeholder='Current amount: {{group.reps}}' value={{group.reps}} ng-keydown='changed()' ng-model=group.reps ng-model-options="{getterSetter: true}">
 					</label>
 
 <!-- 

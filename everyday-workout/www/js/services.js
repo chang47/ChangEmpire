@@ -81,15 +81,19 @@ angular.module('app.services', [])
 }])
 
 .factory('exerciseFactory',['exerciseDb',function(exerciseDb){
-	exercises = exerciseDb.get();
+	var exercises = {};
+	exercises.list = exerciseDb.get();
 	exercises.save = function(list){
 		console.log("In factory ",list);
 		if (list.length !=1){
 			console.log("Error");
 			return "error";
 		} else {
-			console.log("Calling set");
-			exerciseDb.set(exercises);
+			console.log("INSIDE SAVE OF EXERCISE FACTPRY " + list[0].sets + " " + list[0].reps)
+			exerciseDb.set(list);
+			exercises.list = exerciseDb.get()
+			console.log("EXERCISE FACTORY, DB GET RETURN " + exercises.list[0].sets + " " + exercises.list[0].reps)
+			
 		}
 	}
 
@@ -99,15 +103,17 @@ angular.module('app.services', [])
 .factory('exerciseDb', ['$window',function($window){
 	db = {};
 	db.set = function(list){
-		console.log("Calling set");
+		console.log("IN THE DB SAVING: " + list[0].sets + " " + list[0].reps);
 		$window.localStorage['exercises'] = JSON.stringify(list);
+
+		var groups = db.get();
+		console.log("RETURNED FROM SAVE: " + groups[0].sets + " " + groups[0].reps)
 	}
 
 	db.get = function(){
 		var list = JSON.parse($window.localStorage['exercises'] || '[]');
 
 		if (list.length == 0){
-			console.log("Called here");
 			db.createData();
 			list = db.get();
 		}
@@ -124,3 +130,4 @@ angular.module('app.services', [])
 	return db;
 
 }]);
+
