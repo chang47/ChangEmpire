@@ -10,11 +10,11 @@
 angular.module('app', ['ionic','ionic.service.core', 'app.controllers', 'app.routes', 'app.services', 'app.directives', 
   'angular.directives-round-progress', 'ngCordova'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $cordovaPush) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
-    if(window.cordova && window.cordova.plugins.Keyboard) {
+    if(window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     }
     if(window.StatusBar) {
@@ -22,28 +22,21 @@ angular.module('app', ['ionic','ionic.service.core', 'app.controllers', 'app.rou
       StatusBar.styleDefault();
     }
 
-    window.parsePlugin.initialize(appId, clientKey, function() {
-      console.log('Parse initialized successfully')
-
-      window.parsePlugin.subscribe('Test1', function() {
-        console.log("subscribed!");
-
-        window.parsePlugin.getInstallationId(function(id) {
-          console.log("got ID " + id);
-        }, function(e) {
-          console.log("failed to get id");
-        });
-      }, function(e) {
-        console.log("failed to subscribe");
-      });
-    }, function(e) {
-      console.log("failed to initialize");
-    });
-
+    var androidConfig = {
+      "senderID": "111111111"
+    }
+    console.log("RUN ISCALLED")
+    $cordovaPush.register(androidConfig).then(function(result) {
+      console.log("success " + result)
+    }, function(err) {
+      console.log("err " + err)
+    })
     // check user and regsiter codehow much 
 /*    push.register(function(token) {
       console.log("Device token:",token.token);
     });*/
 
   });
+
+
 })

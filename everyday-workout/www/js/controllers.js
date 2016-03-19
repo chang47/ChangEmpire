@@ -15,14 +15,15 @@ angular.module('app.controllers', [])
 	$scope.request = function() {
 			$http({
 				method: 'POST',
-				url: 'http://localhost:3000/register',
+				url: 'http://104.131.56.14:3000/register',
 				data: { platform: 'android', token: "11111111"}
 		}).then(function successCallback(response){
-			console.log("success")
-			console.log(response)
+			console.log("success");
+			console.log(JSON.stringify([response]));
 		}, function errorCallback(response) {
-			console.log("failed")
-			console.log(response)
+			console.log("failed");
+			console.log(response);
+			console.log(JSON.stringify([response]));
 		});
 	}
 })
