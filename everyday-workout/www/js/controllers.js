@@ -218,11 +218,16 @@ angular.module('app.controllers', [])
 
 })
 
-.controller('workoutGlossaryCtrl', function($scope,$location,exerciseFactory) {
+.controller('workoutGlossaryCtrl', function($scope,$location,$ionicHistory,exerciseFactory) {
 	$scope.disabled = true;
-	$scope.groups = exerciseFactory;
-	groups = JSON.parse(JSON.stringify($scope.groups));
-	console.log("Groups: ",groups);
+	$scope.groups = exerciseFactory.list;
+	console.log("ONLOAD GROUP IS: " + $scope.groups[0].sets + " " + $scope.groups[0].reps)
+	var groups = copy($scope.groups);
+	$scope.groups = copy(groups);
+	//console.log("Groups: ",groups);
+	
+	console.log("beign called");
+	$ionicHistory.clearCache()
 	//groups = $scope.groups;
   //for (var i=0; i<10; i++) {
     //for (var j=0; j<3; j++) {
@@ -245,7 +250,6 @@ angular.module('app.controllers', [])
     };
 
     $scope.changed = function() {
-    	console.log($scope.groups);
     	$scope.disabled = false;
     }
 
@@ -253,24 +257,41 @@ angular.module('app.controllers', [])
     	console.log("Saved Changes: ",$scope.groups);
     	for(var numOfGroups=0;numOfGroups<$scope.groups.length;numOfGroups++){
 
-    		if (isNaN(parseInt($scope.groups[numOfGroups].sets))){
-    			$scope.groups[numOfGroups].sets = 0;
-    		}
-    		if (isNaN(parseInt($scope.groups[numOfGroups].reps))){
-    			$scope.groups[numOfGroups].reps = 0;
-    		}
     		$scope.groups[numOfGroups].sets = parseInt($scope.groups[numOfGroups].sets);
     		$scope.groups[numOfGroups].reps = parseInt($scope.groups[numOfGroups].reps);
+    		if (isNaN($scope.groups[numOfGroups].sets)){
+    			$scope.groups[numOfGroups].sets = 0;
+    		}
+    		if (isNaN($scope.groups[numOfGroups].reps)){
+    			$scope.groups[numOfGroups].reps = 0;
+    		}
     	}
-	    	exerciseFactory.save($scope.groups);
-			groups = JSON.parse(JSON.stringify($scope.groups));
-			$scope.groups = JSON.parse(JSON.stringify(groups));
-			$scope.disabled = true;
-	    	$location.path('#/main');
+    	console.log("WHAT I AM SAVING", $scope.groups[0].sets + " " + $scope.groups[0].reps)
+	    exerciseFactory.save($scope.groups);
+		groups = copy($scope.groups);
+		$scope.groups = copy(groups);
+		console.log("WHAT I AM NOW", exerciseFactory.list[0].sets + " " + exerciseFactory.list[0].reps)
+		//groups = JSON.parse(JSON.stringify($scope.groups));
+		//$scope.groups = JSON.parse(JSON.stringify(groups));
+		$scope.disabled = true;
     }
     $scope.cancel = function(){
-			$scope.groups = JSON.parse(JSON.stringify(groups));
-			$scope.disabled = true;
-	    	$location.path('#/main');
+		//$scope.groups = JSON.parse(JSON.stringify(groups));
+		console.log(groups);
+		$scope.groups = copy(groups);
+		$scope.disabled = true;
+    }
+
+    function copy(groups) {
+    	list = [];
+    	for (var numOfGroups=0;numOfGroups<groups.length;numOfGroups++) {
+    		obj = {};
+    		obj['sets'] = groups[numOfGroups].sets;
+    		obj['reps'] = groups[numOfGroups].reps;
+    		obj['name'] = groups[numOfGroups].name;
+    		obj['enabled'] = groups[numOfGroups].enabled;
+    		list.push(obj)
+    	}
+    	return list;
     }
 });
