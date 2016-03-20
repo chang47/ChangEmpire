@@ -10,7 +10,7 @@
 angular.module('app', ['ionic','ionic.service.core', 'app.controllers', 'app.routes', 'app.services', 'app.directives', 
   'angular.directives-round-progress', 'ngCordova'])
 
-.run(function($ionicPlatform, $cordovaPush) {
+.run(function($ionicPlatform, $cordovaPush,$state) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -23,7 +23,11 @@ angular.module('app', ['ionic','ionic.service.core', 'app.controllers', 'app.rou
     }
     
     var push = new Ionic.Push({
-      "debug": true
+      "debug": true,
+      onNotification:function(response){
+        console.log("Recieved Notification: ",response);
+        $state.go('workoutExercise')
+      }
     });
 
     push.register(function(token) {
