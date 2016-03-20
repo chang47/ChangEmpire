@@ -180,8 +180,8 @@ angular.module('app.controllers', [])
 .controller('workoutExerciseCtrl', function($scope, $interval,exerciseFactory) {
 	// Note to self: import a number in to the label.
 	$scope.groups = exerciseFactory.list;
-	var exNum = Math.random()*($scope.groups.length);
-	console.log("Random Number:",exNum);
+	//var exNum = Math.random()*($scope.groups[0].list.length);
+	//console.log("Random Number:",exNum);
 	var amountTimes = ($scope.groups[0].sets*20)+($scope.groups[0].sets*$scope.groups[0].reps*5);
 	
 	$scope.roundProgressData = {

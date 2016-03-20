@@ -7,10 +7,16 @@
 // 'starter.controllers' is found in controllers.js
 
 
-angular.module('app', ['ngCordova', 'ionic','ionic.service.core', 'app.controllers', 'app.routes', 'app.services', 'app.directives', 
-  'angular.directives-round-progress'])
+function handleOpenURL(url) {
+  //var path = url.slice(8) // strips away myapp://
+  //window.localStorage.setItem("externalUrl", path);
+  console.log("URL is: ", url)
+}
 
-.run(function($ionicPlatform, $cordovaPush, $http, $state) {
+angular.module('app', ['ionic','ionic.service.core', 'app.controllers', 'app.routes', 'app.services', 'app.directives', 
+  'angular.directives-round-progress', 'ngCordova'])
+
+.run(function($ionicPlatform, $cordovaPush,$state,$rootScope) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -23,11 +29,12 @@ angular.module('app', ['ngCordova', 'ionic','ionic.service.core', 'app.controlle
     }
     var io = Ionic.io();
     var push = new Ionic.Push({
-      "onNotification": function(notification) {
-        console.log("I received a notfication!!!")
-        alert("ANYTHING")
-        $state.go('workoutExercise');
-      },
+      "debug": true,
+      onNotification:function(response){
+        console.log("Recieved Notification: ",response);
+        $state.go('workoutExercise')
+      }
+      
     });
 
     var callback = function(token) {
@@ -49,6 +56,11 @@ angular.module('app', ['ngCordova', 'ionic','ionic.service.core', 'app.controlle
     }
 
     push.register(callback);
+
+    $rootScope.$on('$cordovaPush:notificationReceived', function(event, notification) {
+      //$state.go(notification);
+      console.log("Notification. $ is on");
+    })
 
     /*var androidConfig = {
       "senderID": "111111111"
