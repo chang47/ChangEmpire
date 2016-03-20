@@ -7,10 +7,16 @@
 // 'starter.controllers' is found in controllers.js
 
 
+function handleOpenURL(url) {
+  //var path = url.slice(8) // strips away myapp://
+  //window.localStorage.setItem("externalUrl", path);
+  console.log("URL is: ", url)
+}
+
 angular.module('app', ['ionic','ionic.service.core', 'app.controllers', 'app.routes', 'app.services', 'app.directives', 
   'angular.directives-round-progress', 'ngCordova'])
 
-.run(function($ionicPlatform, $cordovaPush,$state) {
+.run(function($ionicPlatform, $cordovaPush,$state,$rootScope) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -28,11 +34,17 @@ angular.module('app', ['ionic','ionic.service.core', 'app.controllers', 'app.rou
         console.log("Recieved Notification: ",response);
         $state.go('workoutExercise')
       }
+      
     });
 
     push.register(function(token) {
       console.log("Device token:",token.token);
     });
+
+    $rootScope.$on('$cordovaPush:notificationReceived', function(event, notification) {
+      //$state.go(notification);
+      console.log("Notification. $ is on");
+    })
 
     /*var androidConfig = {
       "senderID": "111111111"
