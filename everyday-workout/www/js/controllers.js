@@ -2,14 +2,14 @@ angular.module('app.controllers', [])
 
 .controller('workoutMainMenuCtrl', function($scope,$http) {
 
-	/*var push = new Ionic.Push({
-  		"debug": true,
-  		"onNotification": function(notification) {
-  			// need to pass in a timestamp param that can be used to calculate
-  			// how much time they have left.
-    		$state.go('workoutExercise');
-  		},
-
+	
+    /*var io = Ionic.io();
+    var push = new Ionic.Push({
+      "debug": true,
+      "onNotification": function(notification) {
+      	console.log("I received a notfication!!!")
+        $state.go('workoutExercise');
+      },
     });*/
 
 	$scope.request = function() {
@@ -179,7 +179,7 @@ angular.module('app.controllers', [])
    
 .controller('workoutExerciseCtrl', function($scope, $interval,exerciseFactory) {
 	// Note to self: import a number in to the label.
-	$scope.groups = exerciseFactory;
+	$scope.groups = exerciseFactory.list;
 	var exNum = Math.random()*($scope.groups.length);
 	console.log("Random Number:",exNum);
 	var amountTimes = ($scope.groups[0].sets*20)+($scope.groups[0].sets*$scope.groups[0].reps*5);

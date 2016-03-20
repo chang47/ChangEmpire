@@ -7,10 +7,10 @@
 // 'starter.controllers' is found in controllers.js
 
 
-angular.module('app', ['ionic','ionic.service.core', 'app.controllers', 'app.routes', 'app.services', 'app.directives', 
-  'angular.directives-round-progress', 'ngCordova'])
+angular.module('app', ['ngCordova', 'ionic','ionic.service.core', 'app.controllers', 'app.routes', 'app.services', 'app.directives', 
+  'angular.directives-round-progress'])
 
-.run(function($ionicPlatform, $cordovaPush) {
+.run(function($ionicPlatform, $cordovaPush, $http, $state) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -21,14 +21,34 @@ angular.module('app', ['ionic','ionic.service.core', 'app.controllers', 'app.rou
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
-    
+    var io = Ionic.io();
     var push = new Ionic.Push({
-      "debug": true
+      "onNotification": function(notification) {
+        console.log("I received a notfication!!!")
+        alert("ANYTHING")
+        $state.go('workoutExercise');
+      },
     });
 
-    push.register(function(token) {
-      console.log("Device token:",token.token);
-    });
+    var callback = function(token) {
+      console.log('Registered token:', token.token);
+      push.saveToken(token);
+
+      $http({
+        method: 'POST',
+        url: 'http://104.131.56.14:3000/register',
+        data: { platform: 'android', token: token.token }
+      }).then(function successCallback(response){
+        console.log("success");
+        console.log(JSON.stringify([response]));
+      }, function errorCallback(response) {
+        console.log("failed");
+        console.log(response);
+        console.log(JSON.stringify([response]));
+      });
+    }
+
+    push.register(callback);
 
     /*var androidConfig = {
       "senderID": "111111111"
