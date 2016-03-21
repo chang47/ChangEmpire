@@ -22,6 +22,12 @@ angular.module('app.services', [])
 			dateDb.set('fri', list[4]);
 			dateDb.set('sat', list[5]);
 			dateDb.set('sun', list[6]);
+			var serverData = JSON.stringify(list);
+			$http({
+			    method: 'POST',
+			    url: 'http://104.131.56.14:3000/update-schedule',
+			    data: { "token": $window.localStorage['token'], "list": serverData}
+			});
 		}
 	}
 	return dates;
@@ -30,7 +36,7 @@ angular.module('app.services', [])
 
 // example of what date object would look like:
 // {time: "0:00", selected: false, style: {"backgroundColor": "white", "borderTop": "none"}, style2: {"borderTop": "none"}}
-.factory('dateDb', ['$window', function($window){
+.factory('dateDb', ['$window', '$http', function($window, $http){
 	db = {};
 	db.set = function(day, list) {
 		$window.localStorage[day] = JSON.stringify(list);
@@ -75,7 +81,7 @@ angular.module('app.services', [])
 				object.style.borderBottom = "none";
 				object.style2 = { borderBottom: "none"};
 			}
-			obj.list.push({object});
+			obj.list.push(object);
 		}
 		db.set(day, obj);
 	} 
@@ -102,7 +108,7 @@ angular.module('app.services', [])
 	return exercises;
 }])
 
-.factory('exerciseDb', ['$window', '$http', function($window, $http){
+.factory('exerciseDb', ['$window', function($window){
 	db = {};
 	db.set = function(list){
 		console.log("IN THE DB SAVING: " + list[0].sets + " " + list[0].reps);

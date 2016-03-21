@@ -2,7 +2,13 @@ angular.module('app.controllers', [])
 
 .controller('workoutMainMenuCtrl', function($scope,$http, $window) {
 
-	
+	$window.localStorage.removeItem("mon");
+	$window.localStorage.removeItem("tue");
+	$window.localStorage.removeItem("wed");
+	$window.localStorage.removeItem("thu");
+	$window.localStorage.removeItem("fri");
+	$window.localStorage.removeItem("sat");
+	$window.localStorage.removeItem("sun");
     /*var io = Ionic.io();
     var push = new Ionic.Push({
       "debug": true,
@@ -11,14 +17,8 @@ angular.module('app.controllers', [])
         $state.go('workoutExercise');
       },
     });*/
-/*
-	$window.localStorage.removeItem("mon");
-	$window.localStorage.removeItem("tue");
-	$window.localStorage.removeItem("wed");
-	$window.localStorage.removeItem("thu");
-	$window.localStorage.removeItem("fri");
-	$window.localStorage.removeItem("sat");
-	$window.localStorage.removeItem("sun");*/
+    var a = new Date().getTimezoneOffset();
+	console.log("time is", a);
 	$scope.request = function() {
 			$http({
 				method: 'POST',
@@ -49,12 +49,12 @@ angular.module('app.controllers', [])
 	$scope.select = function(index) {
 		console.log("index", index)
 		$scope.changed = true;
-		$scope.dates[$scope.tab].list[index].object.selected = !$scope.dates[$scope.tab].list[index].object.selected
-		if ($scope.dates[$scope.tab].list[index].object.style.backgroundColor == "white") {
-			$scope.dates[$scope.tab].list[index].object.style.backgroundColor = "#b2b2b2";
+		$scope.dates[$scope.tab].list[index].selected = !$scope.dates[$scope.tab].list[index].selected
+		if ($scope.dates[$scope.tab].list[index].style.backgroundColor == "white") {
+			$scope.dates[$scope.tab].list[index].style.backgroundColor = "#b2b2b2";
 			//$scope.selected.push({tab: $scope.tab, 'index': index});
 		} else {
-			$scope.dates[$scope.tab].list[index].object.style.backgroundColor = "white";
+			$scope.dates[$scope.tab].list[index].style.backgroundColor = "white";
 		}
 		// problem, what if on by default? seperate list: selected and not
 		/*if ($scope.selected.length == 0) {
@@ -106,8 +106,8 @@ angular.module('app.controllers', [])
 				  	$scope.changed = true;
 				  	list = $scope.dates[$scope.tab].list;
 				  	for (var i = 0; i < list.length; i++) {
-				  	  list[i].object.style.backgroundColor = "white";
-				  	  list[i].object.selected = false;
+				  	  list[i].style.backgroundColor = "white";
+				  	  list[i].selected = false;
 				  	}
 				  }
 				}

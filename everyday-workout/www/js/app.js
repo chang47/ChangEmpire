@@ -13,16 +13,10 @@ function handleOpenURL(url) {
   console.log("URL is: ", url)
 }
 
-//function onNotification(e) {
-function onNotificationGCM(e) {
-    //  alert('onnoti');
-      console.log("Got a message");
-  }
-
 angular.module('app', ['ionic','ionic.service.core', 'app.controllers', 'app.routes', 'app.services', 'app.directives', 
   'angular.directives-round-progress', 'ngCordova'])
 
-.run(function($ionicPlatform, $cordovaPush,$state,$rootScope,$http) {
+.run(function($ionicPlatform, $cordovaPush,$state,$rootScope,$http, $window) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -33,9 +27,7 @@ angular.module('app', ['ionic','ionic.service.core', 'app.controllers', 'app.rou
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
-    var io = Ionic.io();
     var push = new Ionic.Push({
-      "debug": true,
       onNotification:function(response){
         console.log("Recieved Notification: ",response);
         $state.go('workoutExercise')
@@ -45,21 +37,26 @@ angular.module('app', ['ionic','ionic.service.core', 'app.controllers', 'app.rou
 
     var callback = function(token) {
       console.log('Registered token:', token.token);
-      push.saveToken(token);
 
-/*      $http({
-        method: 'POST',
-        url: 'http://104.131.56.14:3000/register',
-        data: { platform: 'android', token: token.token }
-      }).then(function successCallback(response){
-        console.log("success");
-        console.log(JSON.stringify([response]));
-      }, function errorCallback(response) {
-        console.log("failed");
-        console.log(response);
-        console.log(JSON.stringify([response]));
-      });
-*/    }
+      if (typeof($window.localStorage['token']) == 'undefined') {
+        var time = new Date().getTimezoneOffset();  
+        time = Math.floor(time / 60);
+        $http({
+          method: 'POST',
+          url: 'http://104.131.56.14:3000/register',
+          // prefix will be handled by the server
+          data: { platform: 'android', "token": token.token, "timezone": time}
+        }).then(function successCallback(response){
+          console.log("success");
+          console.log(JSON.stringify([response]));
+        }, function errorCallback(response) {
+          console.log("failed");
+          console.log(response);
+          console.log(JSON.stringify([response]));
+        });
+        $window.localStorage['token'] = token.token;
+      }
+    }
 
     push.register(callback);
 
