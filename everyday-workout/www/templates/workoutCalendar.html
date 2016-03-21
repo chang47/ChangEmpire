@@ -21,6 +21,7 @@
     <ion-tab title="Sun" on-select="swapTab(6)">
     </ion-tab>
 </ion-tabs>
+
 <ion-view title="Workout Calendar">
     <!-- unknown reason, but this has to be outside -->
     <ion-nav-buttons side="right">
@@ -31,8 +32,14 @@
 
     <ion-content overflow-scroll="true" padding="true" class="has-tabs-top"> <!-- important class!! -->
         <a href="#/timeEditor/{{tab}}" class="button button-stable button-block ">More Specific</a>
+
+        <label class="item item-input-wrapper">
+            <span class="input-label">Exercises</span>
+            <input type="tel" placeholder='Current amount: ' ng-keydown='inputAdded()' ng-model="dates[tab].dailyExercises" ng-model-options="{getterSetter: true}">
+        </label>
+        <br />
         <div>
-            <ion-scroll zooming="false" direction="y" style="height:500px;">
+            <ion-scroll zooming="false" direction="y" style="height:280px;">
                 <div>
                     <!-- main table that contains the time table and the button table -->
                     <table class="main" style="table-layout: fixed; border: solid 1px; border-color: gray;">
@@ -42,9 +49,9 @@
                                     <!-- the time title -->
                                     <table class="time-name">
                                         <tbody>
-                                            <tr ng-repeat="date in dates[tab]">
+                                            <tr ng-repeat="date in dates[tab].list">
                                                 <!-- todo might consider refactoring to just check if the elements are the last or first one -->
-                                                <td ng-style="date.style2">{{ date.date }}</td>
+                                                <td ng-style="date.object.style2">{{ date.object.date }}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -53,8 +60,8 @@
                                     <!-- The button for the time -->
                                     <table class="time-button">
                                         <tbody>
-                                            <tr ng-repeat="date in dates[tab]">
-                                                <td ng-style="date.style" ng-click="select($index)">&nbsp;</td>
+                                            <tr ng-repeat="date in dates[tab].list">
+                                                <td ng-style="date.object.style" ng-click="select($index)">&nbsp;</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -62,9 +69,20 @@
                             </tr>
                         </tbody>
                     </table>
+
+                    <!-- <ion-item>
+                        <label class="item item-input-wrapper">
+                            <span class="input-label">Exercises</span>
+                            <input type="tel" placeholder='Current amount: ' ng-keydown='inputAdded()' value={{dates.exercise}} ng-model-options="{getterSetter: true}">
+                        </label>
+                    </ion-item> -->
+
                 </div>            
             </ion-scroll>
+
+
             <button class="button button-full button-assertive" ng-show="changed" ng-click="saveChanges()">Save</button>
         </div>
     </ion-content>
+
 </ion-view>

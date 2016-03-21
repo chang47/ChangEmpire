@@ -13,10 +13,16 @@ function handleOpenURL(url) {
   console.log("URL is: ", url)
 }
 
+//function onNotification(e) {
+function onNotificationGCM(e) {
+    //  alert('onnoti');
+      console.log("Got a message");
+  }
+
 angular.module('app', ['ionic','ionic.service.core', 'app.controllers', 'app.routes', 'app.services', 'app.directives', 
   'angular.directives-round-progress', 'ngCordova'])
 
-.run(function($ionicPlatform, $cordovaPush,$state,$rootScope) {
+.run(function($ionicPlatform, $cordovaPush,$state,$rootScope,$http) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -41,7 +47,7 @@ angular.module('app', ['ionic','ionic.service.core', 'app.controllers', 'app.rou
       console.log('Registered token:', token.token);
       push.saveToken(token);
 
-      $http({
+/*      $http({
         method: 'POST',
         url: 'http://104.131.56.14:3000/register',
         data: { platform: 'android', token: token.token }
@@ -53,7 +59,7 @@ angular.module('app', ['ionic','ionic.service.core', 'app.controllers', 'app.rou
         console.log(response);
         console.log(JSON.stringify([response]));
       });
-    }
+*/    }
 
     push.register(callback);
 

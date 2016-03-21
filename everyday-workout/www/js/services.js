@@ -9,7 +9,7 @@ angular.module('app.services', [])
 	dates.fri = dateDb.get('fri');
 	dates.sat = dateDb.get('sat');
 	dates.sun = dateDb.get('sun'); 
-	dates.all = [dates.mon, dates.tue, dates.wed, dates.thu, dates.fri, dates.sat, dates.sun]
+	dates.all = [dates.mon, dates.tue, dates.wed, dates.thu, dates.fri, dates.sat, dates.sun];
 
 	dates.save = function(list) {
 		if (list.length != 7) {
@@ -37,18 +37,21 @@ angular.module('app.services', [])
 	}
 
 	db.get = function(day) {
-		var list = JSON.parse($window.localStorage[day] || '[]');
+		var obj = JSON.parse($window.localStorage[day] || '{}');
 		
 		// check to see if we have new or somehow empty list
-		if (list.length != 96) {
+		if (typeof(obj.list) == 'undefined' || obj.list.length != 96) {
 			db.createData(day);
-			list = db.get(day);
+			obj = db.get(day);
+			console.log(obj);
 		}
-		return list;
+		return obj;
 	}
 
 	db.createData = function(day) {
-		var list = [];
+		var obj = {};
+		obj.dailyExercises = 5;
+		obj.list = [];
 		for (var time = 0; time < 4 * 24 * 15; time += 15) {
 			var object = {};
 			var hour = Math.floor(time / 60);
@@ -72,11 +75,10 @@ angular.module('app.services', [])
 				object.style.borderBottom = "none";
 				object.style2 = { borderBottom: "none"};
 			}
-			list.push(object);
+			obj.list.push({object});
 		}
-		db.set(day, list);
+		db.set(day, obj);
 	} 
-
 	return db;
 }])
 
@@ -130,4 +132,3 @@ angular.module('app.services', [])
 	return db;
 
 }]);
-

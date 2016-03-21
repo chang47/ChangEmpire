@@ -1,6 +1,6 @@
 angular.module('app.controllers', [])
 
-.controller('workoutMainMenuCtrl', function($scope,$http) {
+.controller('workoutMainMenuCtrl', function($scope,$http, $window) {
 
 	
     /*var io = Ionic.io();
@@ -11,7 +11,14 @@ angular.module('app.controllers', [])
         $state.go('workoutExercise');
       },
     });*/
-
+/*
+	$window.localStorage.removeItem("mon");
+	$window.localStorage.removeItem("tue");
+	$window.localStorage.removeItem("wed");
+	$window.localStorage.removeItem("thu");
+	$window.localStorage.removeItem("fri");
+	$window.localStorage.removeItem("sat");
+	$window.localStorage.removeItem("sun");*/
 	$scope.request = function() {
 			$http({
 				method: 'POST',
@@ -34,20 +41,29 @@ angular.module('app.controllers', [])
 	$scope.changed = false;
 	$scope.selected = [];
 
+	// NOTE: because we wanted to include the number of unique exercises per day:
+	// the format to get the actual object in each list is now:
+	// console.log($scope.dates[$scope.tab].list[0].object);
+	
 	// fun fact [] interprets the value as the key
 	$scope.select = function(index) {
+		console.log("index", index)
 		$scope.changed = true;
-		$scope.dates[$scope.tab][index].selected = !$scope.dates[$scope.tab][index].selected
-		if ($scope.dates[$scope.tab][index].style.backgroundColor == "white") {
-			$scope.dates[$scope.tab][index].style.backgroundColor = "#b2b2b2";
+		$scope.dates[$scope.tab].list[index].object.selected = !$scope.dates[$scope.tab].list[index].object.selected
+		if ($scope.dates[$scope.tab].list[index].object.style.backgroundColor == "white") {
+			$scope.dates[$scope.tab].list[index].object.style.backgroundColor = "#b2b2b2";
 			//$scope.selected.push({tab: $scope.tab, 'index': index});
 		} else {
-			$scope.dates[$scope.tab][index].style.backgroundColor = "white";
+			$scope.dates[$scope.tab].list[index].object.style.backgroundColor = "white";
 		}
 		// problem, what if on by default? seperate list: selected and not
 		/*if ($scope.selected.length == 0) {
 			$scope.changed = false;
 		}*/
+	}
+
+	$scope.inputAdded = function() {
+		$scope.changed = true;
 	}
 
 	$scope.swapTab = function(tab) {
@@ -88,10 +104,10 @@ angular.module('app.controllers', [])
 				  type: 'button-positive',
 				  onTap: function(e) {
 				  	$scope.changed = true;
-				  	list = $scope.dates[$scope.tab];
+				  	list = $scope.dates[$scope.tab].list;
 				  	for (var i = 0; i < list.length; i++) {
-				  	  list[i].style.backgroundColor = "white";
-				  	  list[i].selected = false;
+				  	  list[i].object.style.backgroundColor = "white";
+				  	  list[i].object.selected = false;
 				  	}
 				  }
 				}
@@ -162,8 +178,8 @@ angular.module('app.controllers', [])
 			var endPos = $scope.endHour * 4 + $scope.endMinute / 15;
 			var tab = $stateParams['day'];
 			for (var i = startPos; i < endPos; i++) {
-				dates[tab][i].selected = true;
-				dates[tab][i].style.backgroundColor = "#b2b2b2";
+				dates[tab].list[i].selected = true;
+				dates[tab].list[i].style.backgroundColor = "#b2b2b2";
 			}
 			datesFactory.save(dates);
 			
