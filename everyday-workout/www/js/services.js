@@ -82,7 +82,7 @@ angular.module('app.services', [])
 	return db;
 }])
 
-.factory('exerciseFactory',['exerciseDb',function(exerciseDb){
+.factory('exerciseFactory',['exerciseDb', function(exerciseDb){
 	var exercises = {};
 	exercises.list = exerciseDb.get();
 	exercises.save = function(list){
@@ -102,7 +102,7 @@ angular.module('app.services', [])
 	return exercises;
 }])
 
-.factory('exerciseDb', ['$window',function($window){
+.factory('exerciseDb', ['$window', '$http', function($window, $http){
 	db = {};
 	db.set = function(list){
 		console.log("IN THE DB SAVING: " + list[0].sets + " " + list[0].reps);
