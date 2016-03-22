@@ -1,6 +1,6 @@
 angular.module('app.services', [])
 
-.factory('datesFactory', ['dateDb', function(dateDb){
+.factory('datesFactory', ['dateDb', '$http', '$window', function(dateDb, $http, $window){
 	dates = {};
 	dates.mon = dateDb.get('mon');
 	dates.tue = dateDb.get('tue');
@@ -22,7 +22,25 @@ angular.module('app.services', [])
 			dateDb.set('fri', list[4]);
 			dateDb.set('sat', list[5]);
 			dateDb.set('sun', list[6]);
-			var serverData = JSON.stringify(list);
+
+			// making the data to send to the server for it to schedule posts
+			var serverList = []
+			for (var i = 0; i < list.length; i++) {
+				var obj = {workouts: list[i].dailyExercises};
+				var workoutTime = [];
+				for (var j = 0; j < list[i].list.length; j++) {
+					if (list[i].list[j].style.backgroundColor == "#b2b2b2") {
+						var date = list[i].list[j].date;
+						if (date.length <= 4) {
+							date = "0" + date;
+						}
+						workoutTime.push(date);
+					}
+				}
+				obj.list = workoutTime;
+				serverList.push(obj);
+			}
+			var serverData = JSON.stringify(serverList);
 			$http({
 			    method: 'POST',
 			    url: 'http://104.131.56.14:3000/update-schedule',
@@ -36,7 +54,7 @@ angular.module('app.services', [])
 
 // example of what date object would look like:
 // {time: "0:00", selected: false, style: {"backgroundColor": "white", "borderTop": "none"}, style2: {"borderTop": "none"}}
-.factory('dateDb', ['$window', '$http', function($window, $http){
+.factory('dateDb', ['$window', function($window){
 	db = {};
 	db.set = function(day, list) {
 		$window.localStorage[day] = JSON.stringify(list);
