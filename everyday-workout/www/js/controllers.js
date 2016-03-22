@@ -211,7 +211,7 @@ angular.module('app.controllers', [])
 	$scope.groups = copy(groups);
 	//console.log("Groups: ",groups);
 	
-	console.log("beign called");
+	console.log("being called");
 	$ionicHistory.clearCache()
 	//groups = $scope.groups;
   //for (var i=0; i<10; i++) {
@@ -268,6 +268,7 @@ angular.module('app.controllers', [])
     }
 
     function copy(groups) {
+    	//Creates a copy of the group
     	list = [];
     	for (var numOfGroups=0;numOfGroups<groups.length;numOfGroups++) {
     		obj = {};
