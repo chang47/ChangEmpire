@@ -44,7 +44,11 @@ angular.module('app.services', [])
 			$http({
 			    method: 'POST',
 			    url: 'http://104.131.56.14:3000/update-schedule',
-			    data: { "token": $window.localStorage['token'], "list": serverData}
+			    data: { "token": $window.localStorage['token'], "dates": serverData}
+			}).then(function(response) {
+				console.log(response);
+			}, function(response) {
+				console.log(response);
 			});
 		}
 	}

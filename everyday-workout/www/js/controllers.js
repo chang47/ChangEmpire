@@ -2,37 +2,6 @@ angular.module('app.controllers', [])
 
 .controller('workoutMainMenuCtrl', function($scope,$http, $window) {
 
-	$window.localStorage.removeItem("mon");
-	$window.localStorage.removeItem("tue");
-	$window.localStorage.removeItem("wed");
-	$window.localStorage.removeItem("thu");
-	$window.localStorage.removeItem("fri");
-	$window.localStorage.removeItem("sat");
-	$window.localStorage.removeItem("sun");
-    /*var io = Ionic.io();
-    var push = new Ionic.Push({
-      "debug": true,
-      "onNotification": function(notification) {
-      	console.log("I received a notfication!!!")
-        $state.go('workoutExercise');
-      },
-    });*/
-    var a = new Date().getTimezoneOffset();
-	console.log("time is", a);
-	$scope.request = function() {
-			$http({
-				method: 'POST',
-				url: 'http://104.131.56.14:3000/register',
-				data: { platform: 'android', token: "11111111"}
-		}).then(function successCallback(response){
-			console.log("success");
-			console.log(JSON.stringify([response]));
-		}, function errorCallback(response) {
-			console.log("failed");
-			console.log(response);
-			console.log(JSON.stringify([response]));
-		});
-	}
 })
    
 .controller('workoutCalendarCtrl', function($scope, $ionicPopup, datesFactory) {
